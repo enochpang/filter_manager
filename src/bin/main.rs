@@ -16,9 +16,10 @@ fn main() -> Result<(), Error> {
 
     let mut lexer = Lexer::new(data);
     let mut parser = Parser::new(&mut lexer);
-    let rules = parser.parse().unwrap();
 
-    show_dest_count(rules);
+    if let Some(rules) = parser.parse() {
+        show_dest_count(rules);
+    }
 
     Ok(())
 }

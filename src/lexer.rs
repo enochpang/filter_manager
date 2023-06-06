@@ -45,6 +45,7 @@ impl Lexer {
         }
 
         let token = match ch {
+            '\r' => self.emit_newline(),
             '\n' => self.emit_newline(),
             '\0' => self.emit(TokenKind::End),
             _ => self.emit_text(),
@@ -68,7 +69,7 @@ impl Lexer {
 
     /// Returns a newline token
     fn emit_newline(&mut self) -> Token {
-        while self.peek() == '\n' {
+        while self.peek() == '\r' || self.peek() == '\n' {
             self.advance();
         }
 
